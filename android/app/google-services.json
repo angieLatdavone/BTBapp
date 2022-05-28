@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "459102431617",
+    "project_id": "loginapp-5027e",
+    "storage_bucket": "loginapp-5027e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459102431617:android:f65229c14ae6fa0ec7e080",
+        "android_client_info": {
+          "package_name": "com.example.btbpp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459102431617-kg404hs1k3n0vr7q7snjps48alsnt7jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAa4584l8trGsAp64UhZmH_445RCeJtFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459102431617-kg404hs1k3n0vr7q7snjps48alsnt7jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
