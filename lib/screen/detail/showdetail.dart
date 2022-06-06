@@ -1,35 +1,47 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, unused_element, prefer_final_fields
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_final_fields, non_constant_identifier_names, unused_local_variable, prefer_const_constructors, avoid_unnecessary_containers, avoid_print
 
-import 'package:btbpp/models/busdata.dart';
 import 'package:btbpp/util/alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:swag_package_ag/widget/resize_button.dart';
 
-class ShowDetail extends StatefulWidget {
-  late final List<Ticket> ticket;
-  late final int index;
-  ShowDetail(this.ticket, this.index);
-
+class Showdatil extends StatefulWidget {
+  final destination;
+  final valuetime;
+  final numberplate;
+  final price;
+  const Showdatil(
+      {Key? key,
+      this.destination,
+      this.valuetime,
+      this.numberplate,
+      this.price})
+      : super(key: key);
   @override
-  State<ShowDetail> createState() => _ShowDetailState();
+  State<Showdatil> createState() => _ShowdatilState();
 }
 
-class _ShowDetailState extends State<ShowDetail> {
+class _ShowdatilState extends State<Showdatil> {
   User? user = FirebaseAuth.instance.currentUser;
   var outputFormat = DateFormat('dd/MM/yyyy');
   DateTime _date = DateTime.now();
+  get color => null;
+  bool status = false;
+
+  final Stream<QuerySnapshot> model_Stream =
+      FirebaseFirestore.instance.collection("user").snapshots();
+  CollectionReference model_destination =
+      FirebaseFirestore.instance.collection('user');
 
   _confirmBooking() async {
     try {
       await FirebaseFirestore.instance.collection('reserve').doc().set({
-        'destination': widget.ticket[widget.index].name,
-        'time_trip':
-            widget.ticket[widget.index].currenSelectedValueTime[widget.index],
-        'numberplate':
-            widget.ticket[widget.index].currenValueSelectedCar[widget.index],
-        'price': widget.ticket[widget.index].price.toStringAsFixed(3),
+        'destination': widget.destination,
+        'time_trip': widget.valuetime,
+        'numberplate': widget.numberplate,
+        'price': widget.price,
         'datetime': outputFormat.format(_date),
         'status': 'ຈອງ',
         'email': user!.email,
@@ -43,181 +55,184 @@ class _ShowDetailState extends State<ShowDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple.shade200,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Container(
-          margin: EdgeInsets.only(left: 5),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle, color: Colors.grey.withOpacity(0.3)),
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_outlined,
-              color: Colors.black,
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    return StreamBuilder(
+      stream: model_Stream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+        final List storeDocs = [];
+        List storeDocs1 = [];
+        snapshot.data!.docs.map((DocumentSnapshot document) {
+          Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+          storeDocs.add(data);
+          data['id'] = document.id;
+
+          storeDocs1 =
+              storeDocs.where((element) => element['id'] == user!.uid).toList();
+        }).toList();
+        print("------");
+        print(storeDocs);
+        return Scaffold(
+          backgroundColor: Colors.deepPurple.shade200,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: Container(
+              margin: EdgeInsets.only(left: 5),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey.withOpacity(0.3),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 150,
-              height: 150,
-              child: Image.asset(
-                widget.ticket[widget.index].imgUrl,
-                fit: BoxFit.cover,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                padding: EdgeInsets.all(5),
+                width: 180,
+                height: 180,
+                child: Image.asset('assets/images/buslogo.png'),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              widget.ticket[widget.index].name,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ລົດອອກເວລາ:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'ໂມງ',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  widget.ticket[widget.index]
-                      .currenSelectedValueTime[widget.index],
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ປ້າຍລົດ:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  widget.ticket[widget.index]
-                      .currenValueSelectedCar[widget.index],
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ລາຄາ:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  widget.ticket[widget.index].price.toStringAsFixed(3) + ' ກີບ',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ວັນທີ/ເດືອນ/ປີ:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  DateTime.now().day.toString() + '/',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  DateTime.now().month.toString() + '/',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  DateTime.now().year.toString(),
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Times New Roman',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 70,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              width: double.infinity,
-              height: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple,
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ຊື່ລູກຄ້າ: ',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
-                    _confirmBooking();
-                  },
-                  child: Text(
-                    'ຢືນຢັນການສັ່ງຈອງ ',
-                    style: TextStyle(
-                      fontSize: 30,
+                  SizedBox(width: 5),
+                  Text(
+                    storeDocs1[0]['name'],
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                child: Text(
+                  widget.destination,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                child: Text(
+                  widget.valuetime,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Text(
+                      'ທະບຽນລົດ: ',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  Container(
+                    child: Text(
+                      widget.numberplate,
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 216, 93, 93),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                child: Text(
+                  widget.price,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 216, 93, 93),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+              SizedBox(
+                height: 15,
+              ),
+              status == false
+                  ? Container(
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: ResizeButton(
+                          function: () {
+                            _confirmBooking();
+                            setState(() {
+                              status = true;
+                            });
+                          },
+                          buttonName: 'ຢືນຢັນການຈອງ',
+                          icon: Icon(Icons.autorenew),
+                          startColor: Colors.deepPurple,
+                          endColor: Colors.deepPurple,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: ResizeButton(
+                          function: () {},
+                          buttonName: 'ຢືນຢັນການຈອງສຳເລັັດແລ້ວ',
+                          icon: Icon(Icons.autorenew),
+                          startColor: Colors.deepPurple,
+                          endColor: Colors.deepPurple,
+                        ),
+                      ),
+                    ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

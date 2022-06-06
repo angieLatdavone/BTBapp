@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_print, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_print, non_constant_identifier_names, prefer_final_fields, unused_field
 
-import 'package:btbpp/models/bushome.dart';
 import 'package:btbpp/screen/user/profile.dart';
-import 'package:btbpp/screen/widget/bus_list.dart';
-import 'package:btbpp/screen/widget/bus_list_view.dart';
+import 'package:btbpp/screen/widget/bus_item.dart';
+import 'package:btbpp/screen/widget/image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,12 +16,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Stream<QuerySnapshot> model_Stream =
-      FirebaseFirestore.instance.collection("model_tb_car").snapshots();
+      FirebaseFirestore.instance.collection("model_destination").snapshots();
   CollectionReference model_destination =
-      FirebaseFirestore.instance.collection('model_tb_car');
-  // var selected = 0;
+      FirebaseFirestore.instance.collection('model_destination');
   final pageController = PageController();
-  // final bus = Bus.generateTicket();
+  var outputFormat = DateFormat('dd/MM/yyyy');
+  DateTime _date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +44,8 @@ class _HomePageState extends State<HomePage> {
         }).toList();
         print("------");
         print(storeDocs);
-
         return Scaffold(
-          extendBodyBehindAppBar: true,
+          //extendBodyBehindAppBar: true,
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -59,107 +57,153 @@ class _HomePageState extends State<HomePage> {
                     width: width,
                     height: 80,
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [
-                              Text('BTB App',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(height: 5),
-                              Text('Bus Ticket Booking',
-                                  style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 5),
-                              Text('application and bus ticket booking',
-                                  style: TextStyle(fontSize: 14)),
-                            ],
-                          ),
-                          
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Profile()));
-                                },
-                                child: Container(
-                                  width: 55,
-                                  height: 55,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 45,
-                                    color: Colors.white,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.deepPurple,
-                                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            Text('BTB App',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                            SizedBox(height: 5),
+                            Text('Bus Ticket Booking',
+                                style: TextStyle(fontSize: 14)),
+                            SizedBox(height: 5),
+                            Text('application and bus ticket booking',
+                                style: TextStyle(fontSize: 14)),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Profile()));
+                              },
+                              child: Container(
+                                width: 55,
+                                height: 55,
+                                child: Icon(
+                                  Icons.person,
+                                  size: 45,
+                                  color: Colors.white,
+                                ),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.deepPurple,
                                 ),
                               ),
-                              Text('profile', style: TextStyle(fontSize: 14)),
-                            ],
-                          ),
-                        ]),
-                  ),
-                  Container(
-                    width: width,
-                    color: Colors.grey.shade200,
-                    child: BusList(storeDocs, (int index) {
-                      setState(() {
-                        storeDocs = index;
-                      });
-                      pageController.jumpToPage(index);
-                    }, bus),
+                            ),
+                            Text('ບັນຊີຜູ້ໃຊ້', style: TextStyle(fontSize: 14)),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              preferredSize: Size.fromHeight(90),
+              preferredSize: Size.fromHeight(30),
             ),
           ),
           backgroundColor: Colors.grey.shade200,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 210),
-              Expanded(
-                child: BusListView(storeDocs, (int index) {
-                  setState(
-                    () {
-                      storeDocs = index;
-                    },
-                  );
-                }, pageController, storeDocs),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                height: 60,
-                child: SmoothPageIndicator(
-                  controller: pageController,
-                  count: storeDocs.length,
-                  effect: CustomizableEffect(
-                    dotDecoration: DotDecoration(
-                      width: 8,
-                      height: 8,
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(8),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  children: List.generate(
+                    storeDocs.length,
+                    (index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => TicketItem(storeDocs[index]),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        height: 110,
+                        width: width * 0.95,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.deepPurple, width: 3),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          children: [
+                            image(),
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  top: 20,
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          storeDocs[index]['name'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              height: 1),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          size: 15,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          storeDocs[index]['price'],
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Times New Roman'),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          outputFormat.format(_date),
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    activeDotDecoration: DotDecoration(
-                        width: 10,
-                        height: 10,
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        dotBorder: DotBorder(
-                            color: Colors.white, padding: 2, width: 2)),
                   ),
-                  onDotClicked: (index) => pageController.jumpToPage(index),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
