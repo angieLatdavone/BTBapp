@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
   final Stream<QuerySnapshot> model_Stream =
       FirebaseFirestore.instance.collection("model_destination").snapshots();
   CollectionReference model_destination =
@@ -22,6 +23,12 @@ class _HomePageState extends State<HomePage> {
   final pageController = PageController();
   var outputFormat = DateFormat('dd/MM/yyyy');
   DateTime _date = DateTime.now();
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +114,25 @@ class _HomePageState extends State<HomePage> {
               ),
               preferredSize: Size.fromHeight(30),
             ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.car_repair_sharp),
+                label: 'Bus',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
           ),
           backgroundColor: Colors.grey.shade200,
           body: SingleChildScrollView(

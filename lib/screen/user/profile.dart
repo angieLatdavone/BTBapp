@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison, prefer_final_fields
 
 import 'dart:io';
 
@@ -17,6 +17,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  int _selectedIndex = 2;
   XFile? _image;
   List<XFile>? _image1;
   ImagePicker? picker = ImagePicker();
@@ -44,7 +45,7 @@ class _ProfileState extends State<Profile> {
   late final List Userdateil = [];
   UploadTask? uploadTask;
   late String urlImag;
-  
+
   Future profileUser() async {
     final path = 'images/555-${_image!.name}';
     final file = File(_image!.path);

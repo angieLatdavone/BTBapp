@@ -42,125 +42,142 @@ class _StoryState extends State<Story> {
         print(storeDocs);
         return Scaffold(
           appBar: AppBar(
-            title: Text('ປະຫັວດການຈອງ'),
+            title: Text('ປະຫວັດການຈອງ'),
             centerTitle: true,
           ),
           body: SingleChildScrollView(
             child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: List.generate(
-                  storeDocs1.length,
-                  (index) => GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      width: 400,
-                      height: 200,
-                      color: Colors.grey.shade200,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ຖ້ຽວລົດ: ',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+              child: storeDocs1.length.toString() != '0'
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: List.generate(
+                          storeDocs1.length,
+                          (index) => GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  margin: EdgeInsets.all(10),
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey.shade200,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'ຖ້ຽວລົດ: ',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              storeDocs1[index]['destination']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'ອີເມວ: ',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              storeDocs1[index]['email']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          storeDocs1[index]['price'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'ທະບຽນລົດ: ',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              storeDocs1[index]['numberplate']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          storeDocs1[index]['time_trip']
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'ວັນທີຈອງ: ',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              storeDocs1[index]['datetime']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                child: Text(
-                                  storeDocs1[index]['destination'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ອີເມວ: ',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  storeDocs1[index]['email'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            child: Text(
-                              storeDocs1[index]['price'].toString(),
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ທະບຽນລົດ: ',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  storeDocs1[index]['numberplate'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            child: Text(
-                              storeDocs1[index]['time_trip'].toString(),
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ວັນທີຈອງ: ',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  storeDocs1[index]['datetime'].toString(),
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              )),
+                    )
+                  : Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 200),
+                        child: Text(
+                          'Not found!!!!😐',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
             ),
           ),
         );

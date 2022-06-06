@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
                         autofocus: true,
                         controller: firstnameController,
                         validator: (value) => value!.isEmpty
-                            ? 'ກະລຸນາປ້ອນຊື່ ແລະ ນາມສະກຸນຂອງທ່ານ'
+                            ? 'ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້ຂອງທ່ານ'
                             : null,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -193,7 +193,7 @@ class _RegisterState extends State<Register> {
                             Icons.face,
                             color: Colors.deepPurple,
                           ),
-                          hintText: 'ຊື່ ແລະ ນາມສະກຸນ',
+                          hintText: 'ຊື່ຜູ້ໃຊ້',
                         ),
                       ),
                     ),
@@ -356,7 +356,11 @@ class _RegisterState extends State<Register> {
                           style: ElevatedButton.styleFrom(
                               primary: Colors.deepPurple),
                           onPressed: () {
-                            registermethod();
+                            if (pwdController.text == pwd2Controller.text) {
+                              registermethod();
+                            } else {
+                              showDialogbox(context, 'ກະລຸນາກວດສອບລະຫັດຜ່ານ');
+                            }
                           },
                           child: Text(
                             'ລົງທະບຽນ',
