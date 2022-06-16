@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, avoid_print, override_on_non_overriding_member
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,51 +16,83 @@ class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController emailController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
-  Future<void> senpasswordlink(String email) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.sendPasswordResetEmail(email: email).then((value) {
-      print('ພວກເຮົາຈະສົ່ງລິ້ງປ່ຽນລະຫັດຜ່ານໄປທີ່ $email');
-      showDialog(
+  // Future<void> senpasswordlink(String email) async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   await auth.sendPasswordResetEmail(email: email).then((value) {
+  //     print('ພວກເຮົາຈະສົ່ງລິ້ງປ່ຽນລະຫັດຜ່ານໄປທີ່ $email');
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: Text('ຂໍ້ຄວາມແຈ້ງເຕືອນ'),
+  //           content: Text('ພວກເຮົາຈະສົ່ງລິ້ງປ່ຽນລະຫັດຜ່ານໄປທີ່ $email'),
+  //           actions: <Widget>[
+  //             // ignore: deprecated_member_use
+  //             FlatButton(
+  //               child: Text('ປຶດ'),
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }).catchError(
+  //     (err) {
+  //       print('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງລິ້ງໄປທີ່ $email and $err');
+  //       showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //             title: Text('ຂໍ້ຄວາມແຈ້ງເຕືອນ'),
+  //             content: Text('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງລິ້ງໄປທີ່ $email and $err'),
+  //             actions: <Widget>[
+  //               // ignore: deprecated_member_use
+  //               FlatButton(
+  //                 child: Text('ປິດ'),
+  //                 onPressed: () {
+  //                   Navigator.pop(context);
+  //                 },
+  //               )
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
+  Future resetPassword() async {
+    showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('ຂໍ້ຄວາມແຈ້ງເຕືອນ'),
-            content: Text('ພວກເຮົາຈະສົ່ງລິ້ງປ່ຽນລະຫັດຜ່ານໄປທີ່ $email'),
-            actions: <Widget>[
-              // ignore: deprecated_member_use
-              FlatButton(
-                child: Text('ປຶດ'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
+        builder: (context) => Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('we will send reset password link to you'),
+        ),
       );
-    }).catchError(
-      (err) {
-        print('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງລິ້ງໄປທີ່ $email and $err');
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('ຂໍ້ຄວາມແຈ້ງເຕືອນ'),
-              content: Text('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງລິ້ງໄປທີ່ $email and $err'),
-              actions: <Widget>[
-                // ignore: deprecated_member_use
-                FlatButton(
-                  child: Text('ປິດ'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          },
-        );
-      },
-    );
+      // Navigator.of(context).popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('we can not send link to you'),
+        ),
+      );
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  void dispone() {
+    emailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -114,7 +148,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                     //       .then((value) => Navigator.of(context).pop());
                     // },
                     onPressed: () {
-                      senpasswordlink(emailController.text);
+                      resetPassword();
+                      // senpasswordlink(emailController.text);
                       // Navigator.of(context).pop();
                     },
                     child: Text(

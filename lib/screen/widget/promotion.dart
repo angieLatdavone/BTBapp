@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, prefer_typing_uninitialized_variables
 
 import 'package:btbpp/confirm/confirm_order.dart';
 import 'package:btbpp/screen/detail/call_center.dart';

@@ -94,6 +94,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                       )
                     : data1[0]['status'].toString() == 'true'
                         ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.check,
                                   size: 100.0, color: Colors.green),
@@ -101,6 +102,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                             ],
                           )
                         : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.close, size: 100.0, color: Colors.red),
                               Text('ຍັງບໍ່ໄດ້ຮັບການຊຳລະເງິນ'),
