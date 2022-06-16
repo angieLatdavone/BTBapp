@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, avoid_print, must_be_immutable
-
 import 'package:btbpp/screen/widget/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'BTB App',
             theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
+              primarySwatch: Colors.lightBlue,
             ),
             home: Splash_Screen(),
           );

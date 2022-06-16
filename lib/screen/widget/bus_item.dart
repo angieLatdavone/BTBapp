@@ -53,6 +53,7 @@ class TicketItem extends StatelessWidget {
               ),
             ),
           ),
+          backgroundColor: Colors.grey.shade200,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -61,27 +62,32 @@ class TicketItem extends StatelessWidget {
                     ticket.length,
                     (index) => GestureDetector(
                       onTap: () {
-                        print('55555'+ticket['valuetime'][index].toString());
-                        print('55555'+ticket['name'].toString());
-                        print('55555'+ticket['numberplate'][index].toString());
-                        print('55555'+ticket['price'].toString());
+                        print('55555' + ticket['valuetime'][index].toString());
+                        print('55555' + ticket['name'].toString());
+                        print('55555' +
+                            ticket['numberplate'][index].toString());
+                        print('55555' + ticket['price'].toString());
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => Showdatil(valuetime:ticket['valuetime'][index].toString()
-                            ,destination: ticket['name'].toString(),numberplate:ticket['numberplate'][index].toString() ,price: ticket['price'].toString()),
-                            //ticket, index
+                            builder: (_) => Showdatil(
+                                valuetime:
+                                    ticket['valuetime'][index].toString(),
+                                destination: ticket['name'].toString(),
+                                numberplate:
+                                    ticket['numberplate'][index].toString(),
+                                price: ticket['price'].toString()),
                           ),
                         );
                       },
                       child: Container(
-                        margin: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(5),
                         height: 110,
                         width: width * 0.95,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border:
-                              Border.all(color: Colors.deepPurple, width: 3),
+                          // border:
+                          //     Border.all(color: Colors.lightBlue, width: 3),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Row(
@@ -90,7 +96,7 @@ class TicketItem extends StatelessWidget {
                               padding: EdgeInsets.all(5),
                               width: 90,
                               height: 90,
-                              child: Image.asset('assets/images/buslogo.png'),
+                              child: Image.asset('assets/images/Icon_app.png'),
                             ),
                             Expanded(
                               child: Container(

@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_print, non_constant_identifier_names, prefer_final_fields, unused_field
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_print, non_constant_identifier_names, prefer_final_fields, unused_field, unused_element
 
-import 'package:btbpp/screen/user/profile.dart';
 import 'package:btbpp/screen/widget/bus_item.dart';
-import 'package:btbpp/screen/widget/image.dart';
+import 'package:btbpp/screen/detail/image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -24,11 +23,6 @@ class _HomePageState extends State<HomePage> {
   var outputFormat = DateFormat('dd/MM/yyyy');
   DateTime _date = DateTime.now();
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,32 +75,32 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(fontSize: 14)),
                           ],
                         ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Profile()));
-                              },
-                              child: Container(
-                                width: 55,
-                                height: 55,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 45,
-                                  color: Colors.white,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.deepPurple,
-                                ),
-                              ),
-                            ),
-                            Text('ບັນຊີຜູ້ໃຊ້', style: TextStyle(fontSize: 14)),
-                          ],
-                        ),
+                        // Column(
+                        //   children: [
+                        //     GestureDetector(
+                        //       onTap: () {
+                        //         Navigator.push(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) => Profile()));
+                        //       },
+                        //       child: Container(
+                        //         width: 55,
+                        //         height: 55,
+                        //         child: Icon(
+                        //           Icons.person,
+                        //           size: 45,
+                        //           color: Colors.white,
+                        //         ),
+                        //         decoration: BoxDecoration(
+                        //           shape: BoxShape.circle,
+                        //           color: Colors.deepPurple,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Text('ບັນຊີຜູ້ໃຊ້', style: TextStyle(fontSize: 14)),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -114,25 +108,6 @@ class _HomePageState extends State<HomePage> {
               ),
               preferredSize: Size.fromHeight(30),
             ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.car_repair_sharp),
-                label: 'Bus',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
           ),
           backgroundColor: Colors.grey.shade200,
           body: SingleChildScrollView(
@@ -152,13 +127,13 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: Container(
-                        margin: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(5),
                         height: 110,
                         width: width * 0.95,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border:
-                              Border.all(color: Colors.deepPurple, width: 3),
+                          // border:
+                          //     Border.all(color: Colors.lightBlue, width: 3),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Row(
@@ -179,7 +154,8 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          storeDocs[index]['name'].toString(),
+                                          storeDocs[index]['name']
+                                              .toString(),
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,

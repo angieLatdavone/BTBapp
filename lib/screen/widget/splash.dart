@@ -19,13 +19,12 @@ class _Splash_ScreenState extends State<Splash_Screen> {
         () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login())));
   }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Colors.lightBlue,
       body: Center(
         child: Column(
           children: [
@@ -33,7 +32,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
               margin: EdgeInsets.only(bottom: 50),
               child: Padding(
                 padding: const EdgeInsets.only(left: 100, top: 100, right: 100),
-                child: Image.asset('assets/images/buslogo.png'),
+                child: Image.asset('assets/images/Icon_app.png'),
               ),
             ),
             SizedBox(

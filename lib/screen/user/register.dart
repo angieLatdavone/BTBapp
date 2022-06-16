@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, prefer_const_constructors, sized_box_for_whitespace, unused_field, avoid_print, prefer_const_literals_to_create_immutables
-
-import 'package:btbpp/screen/user/login.dart';
+import 'package:btbpp/screen/widget/bottom.dart';
 import 'package:btbpp/util/alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -104,7 +103,7 @@ class _RegisterState extends State<Register> {
         builder: (context) => SimpleDialog(
           title: Column(
             children: [
-              Icon(Icons.error, color: Colors.red, size: 50),
+              Icon(Icons.check, color: Colors.green, size: 50),
               SizedBox(height: 10),
               Text(
                 'ລົງທະບຽນສຳເລັດແລ້ວ',
@@ -115,8 +114,8 @@ class _RegisterState extends State<Register> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BottomBar()));
               },
               child: Text(
                 'ຕົກລົງ',
@@ -162,7 +161,7 @@ class _RegisterState extends State<Register> {
           return Scaffold(
             appBar: AppBar(
               title: Text('ສ້າງບັນຊີຜູ້ໃຊ້'),
-              backgroundColor: Colors.deepPurple,
+              backgroundColor: Colors.lightBlue,
             ),
             body: SingleChildScrollView(
               child: Form(
@@ -181,17 +180,17 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           suffixIcon: Icon(
                             Icons.face,
-                            color: Colors.deepPurple,
+                            color: Colors.lightBlue,
                           ),
                           hintText: 'ຊື່ຜູ້ໃຊ້',
                         ),
@@ -210,17 +209,17 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           suffixIcon: Icon(
                             Icons.email_outlined,
-                            color: Colors.deepPurple,
+                            color: Colors.lightBlue,
                           ),
                           hintText: 'ອີເມວ',
                         ),
@@ -241,17 +240,17 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           suffixIcon: Icon(
                             Icons.phone_android,
-                            color: Colors.deepPurple,
+                            color: Colors.lightBlue,
                           ),
                           prefixIcon: Padding(
                             padding: const EdgeInsets.only(left: 10, top: 12.5),
@@ -279,12 +278,12 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           suffixIcon: IconButton(
@@ -297,7 +296,7 @@ class _RegisterState extends State<Register> {
                                   : Icons.visibility,
                               color: _isShowpassword == false
                                   ? Colors.grey
-                                  : Colors.deepPurple,
+                                  : Colors.lightBlue,
                             ),
                           ),
                           hintText: 'ລະຫັດຜ່ານ',
@@ -318,12 +317,12 @@ class _RegisterState extends State<Register> {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.deepPurple, width: 3),
+                                BorderSide(color: Colors.lightBlue, width: 3),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           suffixIcon: IconButton(
@@ -336,7 +335,7 @@ class _RegisterState extends State<Register> {
                                   : Icons.visibility,
                               color: _isShowpassword == false
                                   ? Colors.grey
-                                  : Colors.deepPurple,
+                                  : Colors.lightBlue,
                             ),
                           ),
                           hintText: 'ຢືນຢັນລະຫັດຜ່ານ',
@@ -347,14 +346,14 @@ class _RegisterState extends State<Register> {
                       height: 50,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20, right: 20),
+                      margin: EdgeInsets.only(left: 5, right: 5),
                       width: double.infinity,
                       height: 50,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(5),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.deepPurple),
+                              primary: Colors.lightBlue),
                           onPressed: () {
                             if (pwdController.text == pwd2Controller.text) {
                               registermethod();

@@ -1,14 +1,17 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, prefer_const_constructors, avoid_unnecessary_containers, avoid_print, prefer_const_literals_to_create_immutables, unused_import
+// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, prefer_const_constructors, avoid_unnecessary_containers, avoid_print, prefer_const_literals_to_create_immutables, unused_import, prefer_final_fields, sized_box_for_whitespace
 
 import 'dart:convert';
 
 import 'package:btbpp/screen/homescreen.dart';
 import 'package:btbpp/screen/user/register.dart';
+import 'package:btbpp/screen/user/resetpassword.dart';
+import 'package:btbpp/screen/widget/bottom.dart';
+import 'package:btbpp/util/alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../util/alert.dart';
-import 'callapi.dart';
+import '../../services/callapi.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   bool _isShowpassword = true;
 
   @override
@@ -80,7 +84,7 @@ class _LoginState extends State<Login> {
         .then((value) async {
       setState(() {
         MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => HomePage());
+            MaterialPageRoute(builder: (BuildContext context) => BottomBar());
         Navigator.of(context).pushAndRemoveUntil(route, (route) => false);
       });
     }).catchError((response) {
@@ -90,6 +94,12 @@ class _LoginState extends State<Login> {
       myAlert(title, message, context);
     });
   }
+
+  // Future<void> resetPassword({required String email}) async{
+  //   await _auth
+  //       .sendPasswordResetEmail(email: email)
+  //       .then((value) => _status = AuthStatus.successfully)
+  // }
 
   ///check status
   Future<void> checkState() async {
@@ -102,13 +112,14 @@ class _LoginState extends State<Login> {
     if (user != null) {
       CircularProgressIndicator();
       MaterialPageRoute route =
-          MaterialPageRoute(builder: (BuildContext context) => HomePage());
+          MaterialPageRoute(builder: (BuildContext context) => BottomBar());
       Navigator.of(context).pushAndRemoveUntil(route, (route) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    GoogleSignInAccount? user = _googleSignIn.currentUser;
     double screen = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
@@ -118,9 +129,11 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(100, 50, 100, 20),
+                padding: const EdgeInsets.fromLTRB(100, 70, 100, 5),
                 child: Container(
-                  child: Image.asset('assets/images/buslogo.png'),
+                  width: 220,
+                  height: 220,
+                  child: Image.asset('assets/images/Icon_app.png'),
                 ),
               ),
               SizedBox(
@@ -141,18 +154,16 @@ class _LoginState extends State<Login> {
                       value!.isEmpty ? 'ກະລຸນາປ້ອນອີເມວຂອງທ່ານ' : null,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.deepPurple, width: 3),
+                      borderSide: BorderSide(color: Colors.lightBlue, width: 3),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.deepPurple, width: 3),
+                      borderSide: BorderSide(color: Colors.lightBlue, width: 3),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     suffixIcon: Icon(
                       Icons.email_outlined,
-                      color: Colors.deepPurple,
+                      color: Colors.lightBlue,
                     ),
                     hintText: 'ອີເມວ',
                   ),
@@ -170,18 +181,16 @@ class _LoginState extends State<Login> {
                   obscureText: _isShowpassword,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.deepPurple, width: 3),
+                      borderSide: BorderSide(color: Colors.lightBlue, width: 3),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.deepPurple, width: 3),
+                      borderSide: BorderSide(color: Colors.lightBlue, width: 3),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     prefixIcon: Icon(
                       Icons.lock,
-                      color: Colors.deepPurple,
+                      color: Colors.lightBlue,
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -193,7 +202,7 @@ class _LoginState extends State<Login> {
                             : Icons.visibility,
                         color: _isShowpassword == false
                             ? Colors.grey
-                            : Colors.deepPurple,
+                            : Colors.lightBlue,
                       ),
                     ),
                     hintText: 'ລະຫັດຜ່ານ',
@@ -216,7 +225,9 @@ class _LoginState extends State<Login> {
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ResetPassword())),
                     ),
                   ],
                 ),
@@ -231,7 +242,7 @@ class _LoginState extends State<Login> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.deepPurple),
+                    style: ElevatedButton.styleFrom(primary: Colors.lightBlue),
                     onPressed: () {
                       // handleLogin();
                       signinWithEmailAndPassword();
@@ -243,6 +254,17 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
+              // Container(
+              //   child: ElevatedButton(
+              //     child: Text('Login with google accout'),
+              //     onPressed: user != null
+              //         ? null
+              //         : () async {
+              //             await _googleSignIn.signIn();
+              //             setState(() {});
+              //           },
+              //   ),
+              // ),
               const SizedBox(
                 height: 80,
               ),
