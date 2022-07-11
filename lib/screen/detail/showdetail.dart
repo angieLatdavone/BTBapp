@@ -97,27 +97,6 @@ class _ShowdatilState extends State<Showdatil> {
         print(storeDocs);
         return Scaffold(
           backgroundColor: Colors.grey.shade200,
-          // appBar: AppBar(
-          //   elevation: 0,
-          //   backgroundColor: Colors.transparent,
-          //   leading: Container(
-          //     margin: EdgeInsets.only(left: 5),
-          //     alignment: Alignment.center,
-          //     decoration: BoxDecoration(
-          //       shape: BoxShape.circle,
-          //       color: Colors.grey.withOpacity(0.3),
-          //     ),
-          //     child: IconButton(
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //       icon: Icon(
-          //         Icons.arrow_back_ios_outlined,
-          //         color: Colors.black,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           appBar: AppBar(
             title: Text(
               'ລາຍລະອຽດການຈອງ',
@@ -318,7 +297,6 @@ class _ShowdatilState extends State<Showdatil> {
                     SizedBox(height: 30),
                     status == false
                         ? Container(
-                            // margin: EdgeInsets.only(left: 20, right: 20),
                             width: double.infinity,
                             height: 60,
                             decoration: BoxDecoration(
@@ -341,7 +319,6 @@ class _ShowdatilState extends State<Showdatil> {
                             ),
                           )
                         : Container(
-                            // margin: EdgeInsets.only(left: 20, right: 20),
                             width: double.infinity,
                             height: 60,
                             decoration: BoxDecoration(
@@ -363,140 +340,6 @@ class _ShowdatilState extends State<Showdatil> {
               ],
             ),
           ),
-          // body: SingleChildScrollView(
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     children: [
-          //       Container(
-          //         margin: EdgeInsets.all(20),
-          //         padding: EdgeInsets.all(5),
-          //         width: 180,
-          //         height: 180,
-          //         child: Image.asset('assets/images/buslogo.png'),
-          //       ),
-          //       SizedBox(
-          //         height: 25,
-          //       ),
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Text(
-          //             'ຊື່ລູກຄ້າ: ',
-          //             style:
-          //                 TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          //           ),
-          //           SizedBox(width: 5),
-          //           Text(
-          //             storeDocs1[0]['name'],
-          //             style:
-          //                 TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          //           ),
-          //         ],
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       Container(
-          //         child: Text(
-          //           widget.destination,
-          //           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          //         ),
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       Container(
-          //         child: Text(
-          //           widget.valuetime,
-          //           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          //         ),
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Container(
-          //             child: Text(
-          //               'ທະບຽນລົດ: ',
-          //               style: TextStyle(
-          //                   fontSize: 25, fontWeight: FontWeight.bold),
-          //             ),
-          //           ),
-          //           Container(
-          //             child: Text(
-          //               widget.numberplate,
-          //               style: TextStyle(
-          //                 fontSize: 25,
-          //                 fontWeight: FontWeight.bold,
-          //                 color: Color.fromARGB(255, 216, 93, 93),
-          //               ),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       Container(
-          //         child: Text(
-          //           widget.price,
-          //           style: TextStyle(
-          //             fontSize: 25,
-          //             fontWeight: FontWeight.bold,
-          //             color: Color.fromARGB(255, 216, 93, 93),
-          //           ),
-          //         ),
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       status == false
-          //           ? Container(
-          //               margin: EdgeInsets.only(left: 20, right: 20),
-          //               width: double.infinity,
-          //               height: 60,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(30),
-          //               ),
-          //               child: ClipRRect(
-          //                 borderRadius: BorderRadius.circular(30),
-          //                 child: ResizeButton(
-          //                   function: () {
-          //                     _confirmBooking();
-          //                     setState(() {
-          //                       status = true;
-          //                     });
-          //                   },
-          //                   buttonName: 'ຢືນຢັນການຈອງ',
-          //                   icon: Icon(Icons.autorenew),
-          //                   startColor: Colors.lightBlue,
-          //                   endColor: Colors.lightBlue,
-          //                 ),
-          //               ),
-          //             )
-          //           : Container(
-          //               margin: EdgeInsets.only(left: 20, right: 20),
-          //               width: double.infinity,
-          //               height: 60,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(30),
-          //               ),
-          //               child: ClipRRect(
-          //                 borderRadius: BorderRadius.circular(30),
-          //                 child: ResizeButton(
-          //                   function: () {},
-          //                   buttonName: 'ຢືນຢັນການຈອງສຳເລັັດແລ້ວ',
-          //                   icon: Icon(Icons.autorenew),
-          //                   startColor: Colors.lightBlue,
-          //                   endColor: Colors.lightBlue,
-          //                 ),
-          //               ),
-          //             ),
-          //     ],
-          //   ),
-          // ),
         );
       },
     );

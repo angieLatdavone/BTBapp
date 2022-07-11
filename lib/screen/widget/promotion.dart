@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, prefer_typing_uninitialized_variables
 
-import 'package:btbpp/confirm/confirm_order.dart';
+import 'package:btbpp/confirm/narpao.dart';
 import 'package:btbpp/screen/detail/call_center.dart';
+import 'package:btbpp/screen/detail/howto.dart';
 import 'package:btbpp/screen/detail/story.dart';
 import 'package:btbpp/screen/homescreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,9 +17,12 @@ class Promotion extends StatefulWidget {
 
 class _PromotionState extends State<Promotion> {
   final List<String> imageList = [
-    'assets/images/lazada1.jpg',
-    'assets/images/lazada2.jpg',
-    'assets/images/lazada3.jpg',
+    'assets/images/how1.jpg',
+    'assets/images/how2.jpg',
+    'assets/images/how3.jpg',
+    'assets/images/how4.jpg',
+    'assets/images/how4.jpg',
+    'assets/images/how6.jpg',
   ];
   @override
   Widget build(BuildContext context) {
@@ -120,12 +124,10 @@ class _PromotionState extends State<Promotion> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              var data;
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          ConfirmOrder(data: data)));
+                                      builder: (context) => Narpao()));
                             },
                             icon: Icon(
                               Icons.check,
@@ -217,7 +219,12 @@ class _PromotionState extends State<Promotion> {
                             shape: CircleBorder(),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HowToScreen()));
+                            },
                             icon: Icon(
                               Icons.assignment_outlined,
                               color: Colors.lightBlue,

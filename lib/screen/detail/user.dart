@@ -81,17 +81,6 @@ class _UserProfileState extends State<UserProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Text(
-                        //   'ຊື່ຜູ້ໃຊ້ງານ:',
-                        //   style: TextStyle(
-                        //     fontSize: 20,
-                        //     color: Colors.black,
-                        //     fontFamily: 'Phetsarath OT',
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   width: 10,
-                        // ),
                         Text(
                           storeDocs1[0]['name'],
                           style: TextStyle(

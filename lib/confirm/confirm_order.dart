@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, avoid_print, prefer_adjacent_string_concatenation, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, avoid_print, prefer_adjacent_string_concatenation, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 data1[0]['status'].toString() == 'null'
                     ? Column(
@@ -96,8 +96,10 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.check,
-                                  size: 100.0, color: Colors.green),
+                              Container(
+                                child: Icon(Icons.check,
+                                    size: 100.0, color: Colors.green),
+                              ),
                               Text('ຊຳລະເງິນສຳເລັດແລ້ວ'),
                             ],
                           )

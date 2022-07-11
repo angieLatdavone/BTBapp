@@ -75,32 +75,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(fontSize: 14)),
                           ],
                         ),
-                        // Column(
-                        //   children: [
-                        //     GestureDetector(
-                        //       onTap: () {
-                        //         Navigator.push(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //                 builder: (context) => Profile()));
-                        //       },
-                        //       child: Container(
-                        //         width: 55,
-                        //         height: 55,
-                        //         child: Icon(
-                        //           Icons.person,
-                        //           size: 45,
-                        //           color: Colors.white,
-                        //         ),
-                        //         decoration: BoxDecoration(
-                        //           shape: BoxShape.circle,
-                        //           color: Colors.deepPurple,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     Text('ບັນຊີຜູ້ໃຊ້', style: TextStyle(fontSize: 14)),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),

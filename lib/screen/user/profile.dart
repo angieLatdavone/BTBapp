@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison, prefer_final_fields, recursive_getters, avoid_returning_null_for_void, unused_element
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison, prefer_final_fields, recursive_getters, avoid_returning_null_for_void, unused_element, prefer_typing_uninitialized_variables, avoid_function_literals_in_foreach_calls
 
 import 'dart:io';
 
@@ -8,26 +8,31 @@ import 'package:btbpp/screen/detail/call_center.dart';
 import 'package:btbpp/screen/detail/story.dart';
 import 'package:btbpp/screen/detail/user.dart';
 import 'package:btbpp/screen/user/login.dart';
-import 'package:btbpp/services/storage.dart';
+import 'package:btbpp/util/alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class Profile extends StatefulWidget {
+  get id => null;
+
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  final Storage storage = Storage();
+  // final Storage storage2 = Storage();
   int _selectedIndex = 2;
   XFile? _image;
   List<XFile>? _image1;
   ImagePicker? picker = ImagePicker();
+
+  String imglink = '';
 
   get color => null;
   User? user = FirebaseAuth.instance.currentUser;
@@ -37,29 +42,29 @@ class _ProfileState extends State<Profile> {
   CollectionReference model_destination =
       FirebaseFirestore.instance.collection('user');
 
-  get data => data;
+  late final data;
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
 
-    // FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    // // ignore: await_only_futures
-    // User? user = await firebaseAuth.currentUser;
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    // ignore: await_only_futures
+    User? user = await firebaseAuth.currentUser;
 
-    // print("Current User ===>>> $user");
+    print("Current User ===>>> $user");
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 
   late final List Userdateil = [];
-  UploadTask? uploadTask;
+  firebase_storage.UploadTask? uploadTask;
   late String urlImag;
 
   Future profileUser() async {
     final path = 'images/555-${_image!.name}';
     final file = File(_image!.path);
 
-    final ref = FirebaseStorage.instance.ref().child(path);
+    final ref = firebase_storage.FirebaseStorage.instance.ref().child(path);
 
     uploadTask = ref.putFile(file);
 
@@ -72,6 +77,71 @@ class _ProfileState extends State<Profile> {
 
     print('Link: ' + urlImage);
   }
+
+  final firebase_storage.FirebaseStorage storage2 =
+      firebase_storage.FirebaseStorage.instance;
+  String images = '';
+
+  Future<void> Uploadimage(
+    String filepath,
+    String filename,
+  ) async {
+    File file = File(filepath);
+    try {
+      await storage2.ref('images/$filename').putFile(file);
+      downloadURL(filename);
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  Future<firebase_storage.ListResult> listFiles() async {
+    firebase_storage.ListResult results =
+        await storage2.ref('images').listAll();
+
+    results.items.forEach((firebase_storage.Reference ref) {
+      print('Found file: $ref');
+    });
+    return results;
+  }
+
+  CollectionReference reserve = FirebaseFirestore.instance.collection('user');
+  Future<String> downloadURL(String imageName) async {
+    String downloadURL =
+        await storage2.ref('images/$imageName').getDownloadURL();
+    print('=========================== ' + downloadURL);
+    setState(() {
+      imglink = downloadURL;
+      _updatedBooking();
+    });
+    return downloadURL;
+  }
+
+  Future<void> _updatedBooking() {
+    showDialog(context: context, builder: (_) => dialog());
+    return reserve
+        .doc(user!.uid)
+        .update({'images': imglink})
+        .then((value) {
+          showDialogbox(context, 'ເພີ່ມຂໍ້ມູນສຳເລັດແລ້ວ.');
+          Navigator.pop(context);
+          Navigator.pop(context);
+        })
+        .catchError((error) {})
+        .catchError((error) {
+          showDialogbox(context, 'error: $error');
+        });
+  }
+
+  Widget dialog() => CupertinoAlertDialog(
+        title: Center(child: CircularProgressIndicator()),
+        content: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Center(
+            child: Text('ກະລຸນາລໍຖ້າ'),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +169,6 @@ class _ProfileState extends State<Profile> {
         print("------");
         //print(storeDocs);
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('ບັນຊີຜູ້ໃຊ້ງານ'),
-          //   centerTitle: true,
-          // ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Column(
@@ -110,80 +176,53 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 30,
                 ),
-                Center(
-                  child: InkWell(
-                    onTap: () async {
-                      final results = await FilePicker.platform.pickFiles(
-                        allowMultiple: false,
-                        type: FileType.custom,
-                        allowedExtensions: ['jpg', 'png'],
-                      );
-                      if (results == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('No file selected'),
-                          ),
-                        );
-                        return null;
-                      }
-                      final path = results.files.single.path;
-                      final fileName = results.files.single.name;
-
-                      print(path);
-                      print(fileName);
-
-                      await storage.Uploadimage(path!, fileName)
-                          .then((value) => print('done'));
-                      // FutureBuilder(
-                      //   future: storage.downloadURL(fileName),
-                      //   builder: (BuildContext context,
-                      //       AsyncSnapshot<String> snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //             ConnectionState.done &&
-                      //         snapshot.hasData) {
-                      //       return Image.network(
-                      //         snapshot.data!,
-                      //         fit: BoxFit.cover,
-                      //       );
-                      //     }
-                      //     if (snapshot.connectionState ==
-                      //             ConnectionState.waiting ||
-                      //         !snapshot.hasData) {
-                      //       return CircularProgressIndicator();
-                      //     }
-                      //     return Container();
-                      //   },
-                      // );
-                    },
-                    child: Image.asset(
-                      'assets/images/Profile-Pic-Icon.png',
-                      width: 180,
-                      height: 180,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                FutureBuilder(
-                  future: storage.downloadURL('Profile-Pic-Icon.png'),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return Container(
-                        child: Image.network(
-                          snapshot.data!,
+                Column(
+                  children: [
+                    Stack(
+                      children: [
+                        // model_Stream[0] == null ?
+                        Container(
                           width: 180,
                           height: 180,
-                          fit: BoxFit.cover,
+                          child:
+                              Image.asset('assets/images/Profile-Pic-Icon.png'),
                         ),
-                      );
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting ||
-                        !snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    }
-                    return Container();
-                  },
+                        Positioned(
+                          bottom: 10,
+                          right: 20,
+                          child: InkWell(
+                            onTap: () async {
+                              final results =
+                                  await FilePicker.platform.pickFiles(
+                                allowMultiple: false,
+                                type: FileType.custom,
+                                allowedExtensions: ['jpg', 'png'],
+                              );
+                              if (results == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('No file selected'),
+                                  ),
+                                );
+                                return null;
+                              }
+                              final path = results.files.single.path;
+                              final fileName = results.files.single.name;
+
+                              print(path);
+                              print(fileName);
+
+                              Uploadimage(path!, fileName);
+                            },
+                            child: Icon(
+                              Icons.add_a_photo,
+                              size: 30,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 10,
@@ -244,7 +283,7 @@ class _ProfileState extends State<Profile> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ConfirmOrder(
-                                        data: data,
+                                        data: data['id'][widget].toString(),
                                       )));
                         },
                         child: Row(
