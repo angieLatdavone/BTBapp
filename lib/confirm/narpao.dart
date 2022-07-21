@@ -126,7 +126,7 @@ class _NarpaoState extends State<Narpao> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             SizedBox(
-                                              width: 45,
+                                              width: 40,
                                             ),
                                             Icon(
                                               Icons.arrow_forward_ios_outlined,

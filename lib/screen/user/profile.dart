@@ -3,8 +3,10 @@
 import 'dart:io';
 
 import 'package:btbpp/confirm/confirm_order.dart';
+import 'package:btbpp/confirm/narpao.dart';
 import 'package:btbpp/screen/detail/btbbooking.dart';
 import 'package:btbpp/screen/detail/call_center.dart';
+import 'package:btbpp/screen/detail/howto.dart';
 import 'package:btbpp/screen/detail/story.dart';
 import 'package:btbpp/screen/detail/user.dart';
 import 'package:btbpp/screen/user/login.dart';
@@ -166,8 +168,7 @@ class _ProfileState extends State<Profile> {
           storeDocs1 =
               storeDocs.where((element) => element['id'] == user!.uid).toList();
         }).toList();
-        print("------");
-        //print(storeDocs);
+        print('5555555' + storeDocs1.toString());
         return Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
@@ -180,13 +181,24 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Stack(
                       children: [
-                        // model_Stream[0] == null ?
-                        Container(
-                          width: 180,
-                          height: 180,
-                          child:
-                              Image.asset('assets/images/Profile-Pic-Icon.png'),
-                        ),
+                        ///model_Stream[0] == null ?
+                        storeDocs1.isEmpty
+                            ? Container(
+                                width: 180,
+                                height: 180,
+                                child: Image.asset(
+                                    'assets/images/Profile-Pic-Icon.png'),
+                              )
+                            : Container(
+                                width: 180,
+                                height: 180,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(90),
+                                    child: Image.network(
+                                      storeDocs1[0]['images'],
+                                      fit: BoxFit.cover,
+                                    )),
+                              ),
                         Positioned(
                           bottom: 10,
                           right: 20,
@@ -282,9 +294,7 @@ class _ProfileState extends State<Profile> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ConfirmOrder(
-                                        data: data['id'][widget].toString(),
-                                      )));
+                                  builder: (context) => Narpao()));
                         },
                         child: Row(
                           children: [
@@ -319,7 +329,12 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HowToScreen()));
+                        },
                         child: Row(
                           children: [
                             Icon(

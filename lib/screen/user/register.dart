@@ -42,6 +42,7 @@ class _RegisterState extends State<Register> {
         'email': emailController.text,
         'numberphone': phoneController.text,
         'password': pwdController.text,
+        'images' : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
       };
 
       // var res = await CallApi().postData(
@@ -80,6 +81,7 @@ class _RegisterState extends State<Register> {
         'email': emailController.text,
         'phone': phoneController.text,
         'password': pwdController.text,
+        'images':'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
       }).then((value) {
         print("=====>>>>> 1");
         // print('Insert value to FireStore Success');
