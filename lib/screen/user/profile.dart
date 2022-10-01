@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison, prefer_final_fields, recursive_getters, avoid_returning_null_for_void, unused_element, prefer_typing_uninitialized_variables, avoid_function_literals_in_foreach_calls
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unused_local_variable, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_field, unnecessary_null_comparison, prefer_final_fields, recursive_getters, avoid_returning_null_for_void, unused_element, prefer_typing_uninitialized_variables, avoid_function_literals_in_foreach_calls, unused_import
 
 import 'dart:io';
 
-import 'package:btbpp/confirm/confirm_order.dart';
-import 'package:btbpp/confirm/narpao.dart';
+import 'package:btbpp/confirm/bill.dart';
 import 'package:btbpp/screen/detail/btbbooking.dart';
 import 'package:btbpp/screen/detail/call_center.dart';
-import 'package:btbpp/screen/detail/howto.dart';
+import 'package:btbpp/screen/detail/manual.dart';
 import 'package:btbpp/screen/detail/story.dart';
 import 'package:btbpp/screen/detail/user.dart';
 import 'package:btbpp/screen/user/login.dart';
@@ -156,7 +155,11 @@ class _ProfileState extends State<Profile> {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(
+            body: Center(
+              child: Text("Loading"),
+            ),
+          );
         }
         final List storeDocs = [];
         List storeDocs1 = [];
@@ -190,8 +193,8 @@ class _ProfileState extends State<Profile> {
                                     'assets/images/Profile-Pic-Icon.png'),
                               )
                             : Container(
-                                width: 180,
-                                height: 180,
+                                width: 160,
+                                height: 160,
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(90),
                                     child: Image.network(
@@ -245,12 +248,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -284,17 +287,15 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Narpao()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Bill()));
                         },
                         child: Row(
                           children: [
@@ -323,12 +324,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -357,12 +358,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -398,12 +399,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -437,12 +438,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       // ignore: deprecated_member_use
-                      child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        color: Colors.white,
+                      child: OutlinedButton(
+                        // padding: EdgeInsets.all(5),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(30),
+                        // ),
+                        // color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -535,73 +536,4 @@ class _ProfileState extends State<Profile> {
       },
     );
   }
-
-  // Widget _images() {
-  //   return SingleChildScrollView(
-  //     child: Container(
-  //       height: 150,
-  //       width: MediaQuery.of(context).size.width,
-  //       margin: EdgeInsets.symmetric(
-  //         horizontal: 20,
-  //         vertical: 20,
-  //       ),
-  //       child: Column(
-  //         children: <Widget>[
-  //           Text(
-  //             'ເລືອກຮູບໂປຮໄຟລ໌',
-  //             style: TextStyle(fontSize: 20),
-  //           ),
-  //           SizedBox(
-  //             height: 20,
-  //           ),
-  //           Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               // ignore: deprecated_member_use
-  //               FlatButton.icon(
-  //                 icon: Icon(Icons.camera),
-  //                 onPressed: () {
-  //                   getimage();
-  //                 },
-  //                 label: Text('ກ້ອງຖ່າຍຮູບ'),
-  //               ),
-  //               // ignore: deprecated_member_use
-  //               FlatButton.icon(
-  //                 icon: Icon(Icons.photo_album),
-  //                 onPressed: () {
-  //                   getimage1();
-  //                 },
-  //                 label: Text('ເປີດຄັງຮູບ'),
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Future getimage() async {
-  //   final XFile? pickedFile = await picker!.pickImage(
-  //     source: ImageSource.camera,
-  //     maxWidth: 2000,
-  //     maxHeight: 2000,
-  //   );
-  //   setState(() {
-  //     _image = pickedFile!;
-  //   });
-  //   profileUser();
-  // }
-
-  // Future getimage1() async {
-  //   final XFile? pickedFile = await picker!.pickImage(
-  //     source: ImageSource.gallery,
-  //     maxWidth: 2000,
-  //     maxHeight: 2000,
-  //   );
-  //   setState(() {
-  //     _image = pickedFile!;
-  //   });
-  //   profileUser();
-  // }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, avoid_print, prefer_adjacent_string_concatenation, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, avoid_print, prefer_adjacent_string_concatenation, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,8 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
       FirebaseFirestore.instance.collection('reserve');
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     // print(widget.data);
     return StreamBuilder(
       stream: model_Stream,
@@ -26,7 +28,11 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(
+            body: Center(
+              child: Text("Loading"),
+            ),
+          );
         }
         final List storeDocs = [];
         List data1 = [];
@@ -52,7 +58,9 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               margin: EdgeInsets.only(left: 5),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.grey.withOpacity(0.3)),
+                shape: BoxShape.circle,
+                color: Colors.grey.withOpacity(0.3),
+              ),
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -94,13 +102,174 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                       )
                     : data1[0]['status'].toString() == 'true'
                         ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                child: Icon(Icons.check,
-                                    size: 100.0, color: Colors.green),
+                                margin: EdgeInsets.only(
+                                  left: 5,
+                                  right: 5,
+                                  bottom: 5,
+                                ),
+                                width: width,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ວັນທີ່ຈອງ: ',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          data1[0]['datetime'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Text('ຊຳລະເງິນສຳເລັດແລ້ວ'),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  left: 5,
+                                  right: 5,
+                                ),
+                                width: width,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.3),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ອີເມວ: ',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          data1[0]['email'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ຖ້ຽວລົດ: ',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          data1[0]['destination'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ທະບຽນລົດ: ',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          data1[0]['numberplate'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'ລາຄາ: ',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          data1[0]['price'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      left: 5,
+                                      right: 5,
+                                      bottom: 5,
+                                    ),
+                                    width: width,
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Icon(Icons.check,
+                                            size: 100.0, color: Colors.green),
+                                        Text('ຊຳລະເງິນສຳເລັດແລ້ວ'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           )
                         : Column(

@@ -16,11 +16,6 @@ Stack image() {
           ),
         ),
       ),
-      // Positioned(
-      //   top: 0,
-      //   right: 0,
-      //   child: Icon(Icons.favorite, color: Colors.pink, size: 25),
-      // ),
     ],
   );
 }

@@ -5,15 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Narpao extends StatefulWidget {
-  const Narpao({Key? key}) : super(key: key);
+class Bill extends StatefulWidget {
+  const Bill({Key? key}) : super(key: key);
 
   @override
-  State<Narpao> createState() => _NarpaoState();
+  State<Bill> createState() => _BillState();
 }
 
-class _NarpaoState extends State<Narpao> {
-
+class _BillState extends State<Bill> {
   User? user = FirebaseAuth.instance.currentUser;
 
   final Stream<QuerySnapshot> model_Stream =
@@ -31,7 +30,11 @@ class _NarpaoState extends State<Narpao> {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(
+            body: Center(
+              child: Text("Loading"),
+            ),
+          );
         }
         final List storeDocs = [];
         List storeDocs1 = [];
@@ -94,8 +97,8 @@ class _NarpaoState extends State<Narpao> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(5),
-                                  width: 120,
-                                  height: 120,
+                                  width: 100,
+                                  height: 100,
                                   child:
                                       Image.asset('assets/images/Icon_app.png'),
                                 ),
@@ -163,7 +166,7 @@ class _NarpaoState extends State<Narpao> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                              storeDocs1[index]['time_trip']
+                                              storeDocs1[index]['numberplate']
                                                   .toString(),
                                               style: TextStyle(
                                                   fontSize: 12,

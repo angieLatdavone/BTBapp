@@ -57,11 +57,6 @@ class _CallCenterState extends State<CallCenter> {
                           style: TextStyle(
                               fontSize: 20, fontFamily: 'Times New Roman'),
                         ),
-                        // SizedBox(width: 10),
-                        // Text(
-                        //   '020 98877117',
-                        //   style: TextStyle(fontSize: 20),
-                        // ),
                       ],
                     ),
                     SizedBox(
@@ -74,7 +69,6 @@ class _CallCenterState extends State<CallCenter> {
                           'ສຳສັບລູກຄ້າທີ່ຕ້ອງການຕິດຕໍ່ສອບຖາມຂໍ້ມູນ',
                           style: TextStyle(fontSize: 15),
                         ),
-                        // SizedBox(width: 10),
                         Text(
                           'ສາມາດພົວພັນໄດ້ຕາມເບີທາງດ້ານລຸ່ມນີ້',
                           style: TextStyle(fontSize: 15),

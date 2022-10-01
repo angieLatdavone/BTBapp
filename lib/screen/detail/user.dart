@@ -28,7 +28,11 @@ class _UserProfileState extends State<UserProfile> {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(
+            body: Center(
+              child: Text("Loading"),
+            ),
+          );
         }
         final List storeDocs = [];
         List storeDocs1 = [];

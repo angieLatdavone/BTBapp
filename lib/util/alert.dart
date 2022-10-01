@@ -33,29 +33,30 @@ void showDialogbox(context, String title) {
 
 void myAlert(String title, String message, BuildContext context) async {
   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: ListTile(
-            leading: Icon(
-              Icons.add_alert,
-              color: Colors.red,
-            ),
-            title: Text(
-              title,
-              style: TextStyle(color: Colors.red),
-            ),
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: ListTile(
+          leading: Icon(
+            Icons.add_alert,
+            color: Colors.red,
           ),
-          content: Text(message),
-          actions: [
-            // ignore: deprecated_member_use
-            FlatButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      });
+          title: Text(
+            title,
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+        content: Text(message),
+        actions: [
+          // ignore: deprecated_member_use
+          OutlinedButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
+      );
+    },
+  );
 }

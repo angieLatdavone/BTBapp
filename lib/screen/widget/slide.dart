@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_unnecessary_containers, prefer_typing_uninitialized_variables
 
-import 'package:btbpp/confirm/narpao.dart';
+import 'package:btbpp/confirm/bill.dart';
 import 'package:btbpp/screen/detail/call_center.dart';
-import 'package:btbpp/screen/detail/howto.dart';
+import 'package:btbpp/screen/detail/manual.dart';
 import 'package:btbpp/screen/detail/story.dart';
 import 'package:btbpp/screen/homescreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -127,7 +127,7 @@ class _PromotionState extends State<Promotion> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Narpao()));
+                                      builder: (context) => Bill()));
                             },
                             icon: Icon(
                               Icons.check,

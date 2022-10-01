@@ -1,5 +1,5 @@
-// ignore_for_file: unused_local_variable, prefer_const_constructors, sized_box_for_whitespace, unused_field, avoid_print, prefer_const_literals_to_create_immutables
-import 'package:btbpp/screen/widget/bottom.dart';
+// ignore_for_file: unused_local_variable, prefer_const_constructors, sized_box_for_whitespace, unused_field, avoid_print, prefer_const_literals_to_create_immutables, deprecated_member_use
+import 'package:btbpp/screen/widget/tap.dart';
 import 'package:btbpp/util/alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,18 +45,6 @@ class _RegisterState extends State<Register> {
         'images' : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
       };
 
-      // var res = await CallApi().postData(
-      //   data,
-      //   'register',
-      // );
-      // print(data);
-      // print('Response status: ${res.statusCode}');
-      // var body = json.decode(res.body);
-      // print(body);
-
-      // if (res.statusCode == 200) {
-      //   Navigator.pop(context);
-      // }
 
     }
   }
@@ -67,15 +55,9 @@ class _RegisterState extends State<Register> {
         .createUserWithEmailAndPassword(
             email: emailController.text, password: pwdController.text)
         .then((value) async {
-      //
+
       var uid = value.user?.uid;
 
-      // UserModel model = UserModel(
-      //   email: email,
-      //   name: name,
-      //   call: call,
-      // );
-      // Map<String, dynamic> data = model.toMap();
       await FirebaseFirestore.instance.collection('user').doc(uid).set({
         'name': firstnameController.text,
         'email': emailController.text,
@@ -84,21 +66,11 @@ class _RegisterState extends State<Register> {
         'images':'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
       }).then((value) {
         print("=====>>>>> 1");
-        // print('Insert value to FireStore Success');
+
         showAboutDialog(context: context);
-        // showdone(context);
-        // Timer(Duration(seconds: 3), () {
-        //   setState(() {
-        //     Navigator.pushReplacement(
-        //         context, MaterialPageRoute(builder: (context) => Login()));
-        //   });
-        //    Navigator.pop(context);
-        // });
+
       });
       print("=====>>>>> 2");
-      // setState(() {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-      // });
 
       showDialog(
         context: context,
@@ -128,9 +100,6 @@ class _RegisterState extends State<Register> {
         ),
       );
 
-      // showDialogbox(context, 'ລົງທະບຽນສຳເລັດແລ້ວ');
-      // Navigator.pop(context);
-      // Navigator.pop(context);
     }).catchError((response) {
       String title = response.code;
       String message = response.message;

@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:btbpp/screen/homescreen.dart';
 import 'package:btbpp/screen/user/register.dart';
 import 'package:btbpp/screen/user/resetpassword.dart';
-import 'package:btbpp/screen/widget/bottom.dart';
+import 'package:btbpp/screen/widget/tap.dart';
 import 'package:btbpp/util/alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,42 +38,6 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
 
-  // handleLogin() async {
-  //   if (globalKey.currentState!.validate()) {
-  //     print('null!!!!');
-  //     var data = {
-  //       'numberphone': phoneController.text,
-  //       'password': pwdController.text
-  //     };
-  //     var res = await CallApi().postDatalogin(
-  //       data,
-  //       'login',
-  //     );
-  //     var body = json.decode(res.body);
-  //     print(body);
-  //     if (res.statusCode == 200) {
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (context) => HomePage()));
-  //     } else {
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) => AlertDialog(
-  //           shape:
-  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  //           content: Container(
-  //             alignment: Alignment.center,
-  //             width: MediaQuery.of(context).size.width,
-  //             height: 60,
-  //             child: Text('ເບີໂທ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ'),
-  //           ),
-  //         ),
-  //       );
-  //     }
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => HomePage()));
-  //   }
-  // }
-
   Future<void> signinWithEmailAndPassword() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth
@@ -94,12 +58,6 @@ class _LoginState extends State<Login> {
       myAlert(title, message, context);
     });
   }
-
-  // Future<void> resetPassword({required String email}) async{
-  //   await _auth
-  //       .sendPasswordResetEmail(email: email)
-  //       .then((value) => _status = AuthStatus.successfully)
-  // }
 
   ///check status
   Future<void> checkState() async {
@@ -254,17 +212,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              // Container(
-              //   child: ElevatedButton(
-              //     child: Text('Login with google accout'),
-              //     onPressed: user != null
-              //         ? null
-              //         : () async {
-              //             await _googleSignIn.signIn();
-              //             setState(() {});
-              //           },
-              //   ),
-              // ),
               const SizedBox(
                 height: 80,
               ),

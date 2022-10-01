@@ -2,7 +2,7 @@
 
 import 'package:btbpp/screen/homescreen.dart';
 import 'package:btbpp/screen/user/profile.dart';
-import 'package:btbpp/screen/widget/promotion.dart';
+import 'package:btbpp/screen/widget/slide.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {

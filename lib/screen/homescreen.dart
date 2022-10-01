@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   var outputFormat = DateFormat('dd/MM/yyyy');
   DateTime _date = DateTime.now();
 
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -35,7 +34,11 @@ class _HomePageState extends State<HomePage> {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Scaffold(
+            body: Center(
+              child: Text("Loading"),
+            ),
+          );
         }
         final List storeDocs = [];
         snapshot.data!.docs.map((DocumentSnapshot document) {
@@ -106,8 +109,6 @@ class _HomePageState extends State<HomePage> {
                         width: width * 0.95,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          // border:
-                          //     Border.all(color: Colors.lightBlue, width: 3),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Row(
@@ -128,8 +129,7 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          storeDocs[index]['name']
-                                              .toString(),
+                                          storeDocs[index]['name'].toString(),
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
